@@ -2,6 +2,9 @@
 
 Este é um projeto de blog desenvolvido em Django, onde os usuários podem escrever e compartilhar posts sobre doramas. Os usuários podem realizar operações CRUD (Criar, Ler, Atualizar, Deletar) em seus próprios posts, bem como curtir os posts de outros usuários. A autenticação do usuário é necessária para curtir postagens e escrever blogs.
 
+![image](https://github.com/sstephanyy/DoramaSphere/assets/128330097/1d17898d-6c60-41c4-9807-e126632b36c1)
+
+
 ## Recursos Principais
 
 1. **Autenticação de Usuário:** Os usuários podem se cadastrar e fazer login para acessar todos os recursos do blog.
