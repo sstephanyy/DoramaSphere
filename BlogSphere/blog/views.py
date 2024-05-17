@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Article
+from .form import ArticleForm
 
 class Index(ListView):
 	model = Article
@@ -49,3 +50,17 @@ class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 	def test_func(self):
 		article = Article.objects.get(id=self.kwargs.get('pk'))
 		return self.request.user.id == article.author.id
+
+
+
+def create_article(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user
+            article.save()
+            return redirect('index')  # Redirect to the home page or any other page
+    else:
+        form = ArticleForm()
+    return render(request, 'blog/create_article.html', {'form': form})
