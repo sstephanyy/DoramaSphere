@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
+   <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">DoramaSphere</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Article' %}">Criar postagem</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto"> 
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                    
+                </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cadastro' %}">Cadastrar</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+   </div>
+</nav>

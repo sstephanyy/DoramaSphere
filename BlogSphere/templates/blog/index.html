@@ -1,0 +1,79 @@
+<style>
+    .transparent-container {
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(255, 20, 147, 0.5); /* Red-pink shadow */
+
+    .btns{
+        color: #fff;
+        background-color: rgba(255, 20, 147, 1);
+        border-color: rgba(255, 20, 147, 1);
+    }
+}
+
+</style>
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-6 col-12 mx-md-auto mx-3 mt-5 mb-5">
+			<h1 class="fw-bolder">DoramaSphere</h1>
+            <div>
+               <h5 class="text-muted">Um blog para você ficar por dentro do mundo dos doramas</h5> 
+            </div>
+			
+		</div>
+	</div>
+
+	{% for object in object_list %}
+	<div class="row">
+		<div class="col-md-6 col-11 mx-md-auto mx-3 mt-5 mb-5 transparent-container">
+            <h3 class="fw-bold">{{ object.title }}</h3>
+            <p class="text-muted">Data: {{ object.date }}</p>
+            <p class="text-muted">Postado por: {{ object.author.username }}</p>
+            {% if object.likes.count == 1 %}
+                <p class="text-muted">{{ object.likes.count }} pessoa gostou deste post</p>
+            {% else %}
+                <p class="text-muted">{{ object.likes.count }} pessoas gostaram deste post</p>
+            {% endif %}
+
+            <div class="my-3">
+                {{ object.content|truncatewords_html:50|safe }}
+            </div>
+
+            <a href="{% url 'detail_article' object.id %}" class="btn btns">Leia mais</a>
+		</div>
+	</div>
+	{% endfor %}
+
+	<nav>
+		<ul class="pagination">
+			<div class="mx-auto d-flex flex-row mt-5">
+				{% if page_obj.has_previous %}
+					<li class="page-item">
+						<a class="page-link" href="?page=1">&laquo; Primeiro</a>
+					</li>
+
+					<li class="page-item">
+						<a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+					</li>
+				{% endif %}
+
+				<li class="page-item">
+					<a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a>
+				</li>
+
+				{% if page_obj.has_next %}
+					<li class="page-item">
+						<a class="page-link" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+					</li>
+				{% endif %}
+			</div>
+		</ul>
+	</nav>
+{% endblock content %}
